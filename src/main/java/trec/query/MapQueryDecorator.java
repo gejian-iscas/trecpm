@@ -1,4 +1,4 @@
-package trec.query;
+package at.medunigraz.imi.bst.trec.query;
 
 import java.util.Map;
 
