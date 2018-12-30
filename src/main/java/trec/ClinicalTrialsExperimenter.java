@@ -3,7 +3,6 @@ package trec;
 
 import clinicaltrial.ClinicalTrial;
 import clinicaltrial.TrecConfig;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.elasticsearch.action.bulk.BulkProcessor;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.apache.commons.lang3.StringEscapeUtils.*;
 import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
 
 public class ClinicalTrialsExperimenter {
@@ -109,10 +109,10 @@ public class ClinicalTrialsExperimenter {
 		return jsonBuilder()
 				.startObject()
 				.field("id", trial.id)
-				.field("brief_title", StringEscapeUtils.escapeJson(trial.brief_title))
-				.field("official_title", StringEscapeUtils.escapeJson(trial.official_title))
-				.field("summary", StringEscapeUtils.escapeJson(trial.summary))
-				.field("description", StringEscapeUtils.escapeJson(trial.description))
+				.field("brief_title", escapeJson(trial.brief_title))
+				.field("official_title", escapeJson(trial.official_title))
+				.field("summary", escapeJson(trial.summary))
+				.field("description", escapeJson(trial.description))
 				.field("studyType", trial.studyType)
 				.field("interventionModel", trial.interventionModel)
 				.field("primary_purpose", trial.primaryPurpose)
@@ -125,8 +125,8 @@ public class ClinicalTrialsExperimenter {
 				.field("sex", trial.sex)
 				.field("minimum_age", trial.minAge)
 				.field("maximum_age", trial.maxAge)
-				.field("inclusion", StringEscapeUtils.escapeJson(trial.inclusion))
-				.field("exclusion", StringEscapeUtils.escapeJson(trial.exclusion))
+				.field("inclusion", escapeJson(trial.inclusion))
+				.field("exclusion", escapeJson(trial.exclusion))
 				.field("keywords", trial.keywords)
 				.field("meshTags", trial.meshTags)
 				.endObject();

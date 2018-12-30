@@ -1,11 +1,6 @@
 package trec.model;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.util.*;
 
 public class Topic {
@@ -16,67 +11,21 @@ public class Topic {
 	private String demographic = "";
 	private String other = "";
 
-    // MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
     public String diseasePreferredTerm = "";
-
-    // MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
     public List<String> geneDescriptions = new ArrayList<>();
-
-	// MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
 	public List<String> diseaseSynonyms = new ArrayList<>();
-
-	// MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
 	public List<String> geneSynonyms = new ArrayList<>();
-
-	// MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
 	public List<String> diseaseHypernyms = new ArrayList<>();
-
-	// MUST be public to be accessed via Reflection on SubTemplateQueryDecorator
 	public List<String> geneHypernyms = new ArrayList<>();
 
 	public Topic() {
 
 	}
-
-	/**
-	 * Builds a Topic out of a XML file in the format:
-	 * 
-	 * <pre>
-	 * {@code
-	 * <topic number="1">
-	 *     <disease>Acute lymphoblastic leukemia</disease>
-	 *     <gene>ABL1, PTPN11</gene>
-	 *     <demographic>12-year-old male</demographic>
-	 *     <other>No relevant factors</other>
-	 * </topic>
-	 * }
-	 * </pre>
-	 * 
-	 * @param xmlFile
-	 * @return
-	 */
-	public static Topic fromXML(File xmlFile) {
-		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-
-		Document doc = null;
-		try {
-			DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-			doc = documentBuilder.parse(xmlFile);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-
-		Element element = (Element) doc.getElementsByTagName("topic").item(0);
-
-		return fromElement(element);
-	}
 	
 	public static Topic fromElement(Element element) {
 		int number = Integer.parseInt(getAttribute(element, "number"));
 		String disease = getElement(element, "disease");
-		
-		// Backwards compatibility
+
 		String gene = "";
 		if (hasElement(element, "variant")) {
 			gene = getElement(element, "variant");
@@ -86,7 +35,6 @@ public class Topic {
 		
 		String demographic = getElement(element, "demographic");
 
-		// 2018 topics have no "other" field
 		String other = "";
 		if (hasElement(element, "other")){
 			other = getElement(element, "other");
@@ -128,31 +76,6 @@ public class Topic {
         return this;
     }
 
-    public Topic withGeneDescription(String description) {
-        this.geneDescriptions.add(description);
-        return this;
-    }
-
-	public Topic withDiseaseSynonym(String synonym) {
-		this.diseaseSynonyms.add(synonym);
-		return this;
-	}
-
-	public Topic withGeneSynonym(String synonym) {
-		this.geneSynonyms.add(synonym);
-		return this;
-	}
-
-	public Topic withDiseaseHypernym(String hypernym) {
-		this.diseaseHypernyms.add(hypernym);
-		return this;
-	}
-
-	public Topic withGeneHypernym(String hypernym) {
-		this.geneHypernyms.add(hypernym);
-		return this;
-	}
-	
 	private static boolean hasElement(Element element, String name) {
 		return element.getElementsByTagName(name).getLength() > 0 ? true : false;
 	}
@@ -207,12 +130,10 @@ public class Topic {
 	
 	public Map<String, String> getAttributes() {
 		Map<String, String> ret = new HashMap<>();
-		
-		// TODO use reflection
 		ret.put("number", String.valueOf(number));
 		ret.put("disease", disease);
 		ret.put("gene", gene);
-		ret.put("variant", gene);	// Backwards compatibility
+		ret.put("variant", gene);
 		ret.put("demographic", demographic);
 		ret.put("other", other);
 		ret.put("sex", getSex());

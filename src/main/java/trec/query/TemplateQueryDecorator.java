@@ -13,22 +13,15 @@ public class TemplateQueryDecorator extends MapQueryDecorator {
 	
 	protected File template;
 
-	/**
-	 * Matches double+ commas with any whitespace in between (this happens when two dynamic subtemplates are not expanded).
-	 * @todo cleanup double curly braces
-	 */
 	private static final Pattern DOUBLE_COMMA = Pattern.compile("(\\p{javaWhitespace}*,){2,}");
 
 	public TemplateQueryDecorator(File template, Query decoratedQuery) {
 		super(decoratedQuery);
 		this.template = template;
-		// XXX This cannot be called here anymore, as the final template generated may depend on the topic
-		//loadTemplate(null);
 	}
 
 	@Override
 	public List<Result> query(Topic topic) {
-	    // We reload the template for each new query, as the jsonQuery has been filled with the previous topic data
 		loadTemplate(topic);
 		map(topic.getAttributes());
 		setJSONQuery(cleanup(getJSONQuery()));

@@ -1,4 +1,4 @@
-package trec.evaluator;
+package trec.writer;
 
 import com.opencsv.CSVWriter;
 import trec.model.Result;
@@ -49,7 +49,7 @@ public class TrecWriter implements Closeable {
 		// Sets fixed fields
 		entries[0] = String.valueOf(resultList.getTopic().getNumber());
 		entries[1] = "Q0";
-		entries[5] = runName; // XXX must be 1-12 alphanumeric characters
+		entries[5] = runName;
 		
 		int rank = 1;
 		for (Result result : resultList.getResults()) {

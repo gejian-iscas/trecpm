@@ -2,10 +2,9 @@ package trec.experiment;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import trec.evaluator.TrecWriter;
+import trec.writer.TrecWriter;
 import trec.model.*;
 import trec.query.Query;
-import trec.stats.CSVStatsWriter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,7 +26,7 @@ public class Experiment extends Thread {
 
 		LOG.info("Running collection " + name + "...");
 
-		File example = new File(CSVStatsWriter.class.getResource("/topics/topics" + year + ".xml").getPath());
+		File example = new File(Experiment.class.getResource("/topics/topics" + year + ".xml").getPath());
 		TopicSet topicSet = new TopicSet(example);
 
 		File output = new File("results/" + getExperimentId() + ".trec_results");
