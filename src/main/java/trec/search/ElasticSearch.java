@@ -10,7 +10,6 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.json.JSONObject;
 import trec.model.Result;
-import trec.utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,6 @@ public class ElasticSearch implements SearchEngine {
 	
 	public List<Result> query(JSONObject jsonQuery) {
 		QueryBuilder qb = QueryBuilders.wrapperQuery(jsonQuery.toString());
-		LOG.trace(JsonUtils.prettify(jsonQuery));
 		return query(qb);
 	}
 	

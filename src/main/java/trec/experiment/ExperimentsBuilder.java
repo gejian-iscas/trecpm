@@ -1,14 +1,9 @@
 package trec.experiment;
 
 import clinicaltrial.TrecConfig;
-import trec.model.Gene;
 import trec.query.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 public class ExperimentsBuilder {
 

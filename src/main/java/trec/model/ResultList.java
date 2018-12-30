@@ -16,15 +16,6 @@ public class ResultList {
 		return results.add(result);
 	}
 
-	/**
-	 * 
-	 * @deprecated Use add(Result result) instead
-	 * @param results
-	 */
-	public void setResults(List<Result> results) {
-		this.results = results;
-	}
-
 	public Topic getTopic() {
 		return topic;
 	}

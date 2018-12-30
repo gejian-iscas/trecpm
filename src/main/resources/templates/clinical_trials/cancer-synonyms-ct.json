@@ -55,7 +55,6 @@
 							"query": "cancer carcinoma tumor",
 							"fields": [
 								"brief_title^2",
-								"abstract",
 								"keyword",
 								"meshTags"
 							],
@@ -82,5 +81,6 @@
 				}
 			}
 		]
+
 	}
 }
